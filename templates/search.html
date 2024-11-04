@@ -1,0 +1,56 @@
+<h2>Search Items</h2>
+<form method="POST" action="/search_items">
+    <label for="item_name">Item Name:</label>
+    <input type="text" name="item_name" id="item_name">
+
+    <label for="item_type">Item Type:</label>
+    <select name="item_type" id="item_type">
+        <option value="">--Select Type--</option>
+        <!-- Add item types dynamically or manually -->
+    </select>
+
+    <label for="location">Location:</label>
+    <select name="location" id="location">
+        <option value="">--Select Location--</option>
+        <!-- Add locations dynamically or manually -->
+    </select>
+
+    <label for="container">Container:</label>
+    <select name="container" id="container">
+        <option value="">--Select Container--</option>
+        <!-- Add containers dynamically or manually -->
+    </select>
+
+    <label for="date_added_from">Date Added From:</label>
+    <input type="date" name="date_added_from" id="date_added_from">
+
+    <label for="date_added_to">Date Added To:</label>
+    <input type="date" name="date_added_to" id="date_added_to">
+
+    <button type="submit">Search</button>
+</form>
+     <h2>Search Results</h2>
+    {% if items %}
+    <ul>
+    {% for item in items %}
+        <li>{{ item.item_name }} in {{ item.container_name }} ({{ item.location_name }})</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No items found.</p>
+{% endif %}
+
+
+@app.route('/inventory_summary')
+def inventory_summary():
+    # Fetch counts by type
+    types_summary = db.execute("SELECT type, COUNT(*) AS count FROM item GROUP BY type").fetchall()
+
+    # Fetch counts by location
+    location_summary = db.execute("SELECT L_name, COUNT(*) AS count FROM item JOIN location ON item.location_id = location.id GROUP BY location_id").fetchall()
+
+    # Fetch counts by container
+    container_summary = db.execute("SELECT C_name, COUNT(*) AS count FROM item JOIN container ON item.container_id = container.id GROUP BY container_id").fetchall()
+
+    return render_template('inventory_summary.html', types_summary=types_summary, location_summary=location_summary, container_summary=container_summary)
+

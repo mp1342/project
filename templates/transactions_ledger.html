@@ -1,0 +1,19 @@
+<h2>Transactions Ledger</h2>
+<table>
+    <tr>
+        <th>Item Name</th>
+        <th>Transaction Type</th>
+        <th>Date</th>
+        <th>Previous Location</th>
+        <th>New Location</th>
+    </tr>
+    {% for transaction in transactions %}
+        <tr>
+            <td>{{ transaction.item_name }}</td>
+            <td>{{ transaction.transaction_type }}</td>
+            <td>{{ transaction.date }}</td>
+            <td>{{ transaction.previous_location }}</td>
+            <td>{{ transaction.new_location }}</td>
+        </tr>
+    {% endfor %}
+</table>

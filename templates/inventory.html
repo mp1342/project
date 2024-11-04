@@ -1,0 +1,43 @@
+<h2>Inventory Summary</h2>
+
+<h3>Summary by Item Type</h3>
+<table>
+    <tr>
+        <th>Type</th>
+        <th>Count</th>
+    </tr>
+    {% for type in types_summary %}
+    <tr>
+        <td>{{ type.type }}</td>
+        <td>{{ type.count }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h3>Summary by Location</h3>
+<table>
+    <tr>
+        <th>Location</th>
+        <th>Count</th>
+    </tr>
+    {% for location in location_summary %}
+    <tr>
+        <td>{{ location.L_name }}</td>
+        <td>{{ location.count }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h3>Summary by Container</h3>
+<table>
+    <tr>
+        <th>Container</th>
+        <th>Count</th>
+    </tr>
+    {% for container in container_summary %}
+    <tr>
+        <td>{{ container.C_name }}</td>
+        <td>{{ container.count }}</td>
+    </tr>
+    {% endfor %}
+</table>

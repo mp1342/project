@@ -1,0 +1,22 @@
+{% if item %}
+    <!-- Display single item details -->
+    <h2>{{ item.item_name }}</h2>
+    <p>Container: {{ item.container_name }}</p>
+    <p>Location: {{ item.location_name }}</p>
+    <p>Date Added: {{ item.date_added }}</p>
+    <p>Date Removed: {{ item.date_removed }}</p>
+{% elif items %}
+    <!-- Display a list of items -->
+    <h2>All Items</h2>
+    <ul>
+        {% for item in items %}
+            <li>
+                <a href="{{ url_for('view_items', item_id=item.id) }}">{{ item.item_name }}</a> in {{ item.container_name }}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No items found.</p>
+{% endif %}
+
+
